@@ -18,7 +18,7 @@ jobs:
       - name: Install Packages.
         run: |
           pacman -Syu --noconfirm
-          pacman -S git sudo base-devel util-linux procps-ng --noconfirm
+          pacman -S git sudo wget base-devel jdk8-openjdk --noconfirm
 
       - name: Clone Repo Server-Mine
         uses: MoeKernel/github-repo-action@v3.1
@@ -35,11 +35,6 @@ jobs:
           git config --global user.email "akariondev@gmail.com"
           git config --global user.name "ginkgo"
   
-      - name: Install Dependencies
-        run: |
-         pacman -Syu --noconfirm
-         pacman -S --noconfirm base-devel jdk8-openjdk
-
       - name: Get Paper
         working-directory: ./server-mine
         run: |
