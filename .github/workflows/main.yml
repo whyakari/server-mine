@@ -40,6 +40,11 @@ jobs:
           url='https://api.papermc.io/v2/projects/paper/versions/1.8.8/builds/445/downloads/paper-1.8.8-445.jar'
           wget -O minecraft_server.jar $url
 
+      - name: Set Permission 
+        working-directory: ./server-mine
+        run: |
+          chmod +x minecraft_server.jar
+
       - name: Start Server
         working-directory: ./server-mine
         run: |
