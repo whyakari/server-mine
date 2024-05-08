@@ -62,3 +62,15 @@ jobs:
         run: |
           ram=5G # Set the RAM here.
           java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui
+
+      - name: Download ngrok
+        working-directory: ./server-mine
+        run: |
+          wget -O ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+          sudo tar -xvzf ngrok.tgz -C /usr/local/bin
+
+      - name: Set ngrok Config
+        working-directory: ./server-mine
+        run: |
+          ngrok config add-authtoken ${{ secrets.TOKEN_NGROK }}
+         
