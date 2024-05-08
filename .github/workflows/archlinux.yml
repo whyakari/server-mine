@@ -10,6 +10,10 @@ jobs:
   build_ci:
     runs-on: ubuntu-latest
 
+    container:
+      image: archlinux/base
+      options: --privileged
+
     steps:
       - name: Clone Repo Server-Mine
         uses: MoeKernel/github-repo-action@v3.1
@@ -20,13 +24,21 @@ jobs:
           repository: 'server-mine'
           access-token: ${{ secrets.TOKEN_GITHUB }}
 
-      - name: Set up Arch Linux
-        uses: docker://archlinux/base
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
         with:
-          entrypoint: /bin/sh
+          swap-size-gb: 5
+
+      - name: Github Configs
+        working-directory: ./server-mine
         run: |
-          pacman -Syu --noconfirm
-          pacman -S --noconfirm base-devel openjdk8 wget
+          git config --global user.email "akariondev@gmail.com"
+          git config --global user.name "ginkgo"
+  
+      - name: Install Dependencies
+        run: |
+         pacman -Syu --noconfirm
+         pacman -S --noconfirm base-devel jdk8-openjdk
 
       - name: Get Paper
         working-directory: ./server-mine
