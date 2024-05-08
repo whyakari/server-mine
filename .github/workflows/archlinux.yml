@@ -17,6 +17,7 @@ jobs:
     steps:
       - name: Install Packages.
         run: |
+          pacman -Syu
           pacman -S git --noconfirm
 
       - name: Clone Repo Server-Mine
