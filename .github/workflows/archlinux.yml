@@ -30,7 +30,7 @@ jobs:
           access-token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Set Swap Space
-        uses: pierotofy/set-swap-space@master
+        uses: whyakari/set-swap-space@v2
         with:
           swap-size-gb: 5
 
