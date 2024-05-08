@@ -54,5 +54,6 @@ jobs:
       - name: Start Server (finally)
         working-directory: ./server-mine
         run: |
+          ram=5G # Set the RAM here.
           java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui
         
