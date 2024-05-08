@@ -15,6 +15,11 @@ jobs:
       options: --privileged
 
     steps:
+
+      - name: Install Packages.
+        run: |
+          pacman -S git
+
       - name: Clone Repo Server-Mine
         uses: MoeKernel/github-repo-action@v3.1
         with:
