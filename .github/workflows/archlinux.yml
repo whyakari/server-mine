@@ -29,11 +29,6 @@ jobs:
           repository: 'server-mine'
           access-token: ${{ secrets.TOKEN_GITHUB }}
 
-      - name: Set Swap Space
-        uses: whyakari/set-swap-space@v2
-        with:
-          swap-size-gb: 5
-
       - name: Github Configs
         working-directory: ./server-mine
         run: |
