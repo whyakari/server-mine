@@ -45,4 +45,14 @@ jobs:
         run: |
           ram=5G # Set the RAM here.
           java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui
+          
+      - name: Agree to the EULA
+        working-directory: ./server-mine
+        run: |
           sed -i '3s/false/true/' eula.txt
+
+      - name: Start Server (finally)
+        working-directory: ./server-mine
+        run: |
+          java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui
+        
