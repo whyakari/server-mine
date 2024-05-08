@@ -18,7 +18,7 @@ jobs:
       - name: Install Packages.
         run: |
           pacman -Syu --noconfirm
-          pacman -S git sudo wget nohup base-devel jdk8-openjdk --noconfirm
+          pacman -S git sudo wget base-devel jdk8-openjdk --noconfirm
 
       - name: Clone Repo Server-Mine
         uses: MoeKernel/github-repo-action@v3.1
