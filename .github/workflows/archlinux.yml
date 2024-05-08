@@ -77,4 +77,5 @@ jobs:
       - name: Set Server ngrok
         working-directory: ./server-mine
         run: |
-          ngrok tcp 25565
+          ngrok tcp 25565 > server.txt
+          cat server.txt
