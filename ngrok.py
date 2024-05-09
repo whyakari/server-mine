@@ -39,4 +39,4 @@ def connect(token, port, region):
 while True:
     if __name__ == "__main__":
         connect(token, 25565, 'us')
-        sleep(100_000_000) 
+    sleep(100_000_000) 
