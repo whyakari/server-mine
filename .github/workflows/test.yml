@@ -1,4 +1,4 @@
-name: Server Mine (Archlinux)
+name: Server Mine Test (Archlinux)
 
 on:
   workflow_dispatch
