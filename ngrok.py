@@ -18,7 +18,9 @@ def connect(token, port, region):
             token = token.split(':')[0]
 
     config = conf.PyngrokConfig(
-        auth_token=token, region=region
+        auth_token=token,
+        region=region,
+        ngrok_path="/usr/local/bin/ngrok"
     )
     try:
         if account == None:
