@@ -37,6 +37,8 @@ def connect(token, port, region):
                'You can use this link after the launch is complete.')
 
 while True:
-    if __name__ == "__main__":
-        connect(token, 25565, 'us')
-    sleep(100_000_000) 
+    public_url = connect(token, 25565, 'us')
+
+    if public_url is not None:
+        print(f'Link disponível: {public_url}') 
+        sleep(100_000_000) 
