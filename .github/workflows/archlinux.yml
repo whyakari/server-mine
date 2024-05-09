@@ -69,9 +69,9 @@ jobs:
           echo "old:"
           cat server.properties
           echo "\n"
-          sed -i '22s/true/false/' server.properties
+          sudo sed -i '22s/true/false/' server.properties
           
-          echo "\nnew changed:"
+          echo "new changed:"
           cat server.properties
 
       - name: Download ngrok
