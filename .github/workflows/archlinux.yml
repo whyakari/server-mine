@@ -77,7 +77,7 @@ jobs:
       - name: Pip Install Packages
         working-directory: ./server-mine
         run: |
-          pip install pyngrok Pyrogram Pyromod TgCrypto load_dotenv
+          pip install pyngrok Pyrogram Pyromod TgCrypto load_dotenv --break-system-packages
 
       - name: Export Variable
         run: |
