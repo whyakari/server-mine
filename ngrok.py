@@ -32,16 +32,3 @@ def connect(token, port, region):
 
     return public_url
 
-def keep_ngrok_running(token, port, region, duration_minutes):
-    public_url = connect(token, port, region)
-    if public_url is not None:
-        print(f'ngrok connected! URL: {public_url}\n'
-              f'ngrok will remain running for {duration_minutes} minutes.')
-        time.sleep(duration_minutes * 60)
-        ngrok.disconnect(public_url)
-        print('ngrok disconnected.')
-
-if __name__ == "__main__":
-    duration_minutes = 10
-    threading.Thread(target=keep_ngrok_running, args=(token, 25565, 'us', duration_minutes)).start()
-
