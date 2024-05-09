@@ -66,6 +66,7 @@ jobs:
       - name: Disable online-mode
         working-directory: ./server-mine
         run: |
+          cat server.properties
           sed -i '34s/true/false/' server.properties
 
       - name: Download ngrok
