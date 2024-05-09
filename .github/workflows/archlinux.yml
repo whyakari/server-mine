@@ -75,7 +75,7 @@ jobs:
           ngrok config add-authtoken ${{ secrets.TOKEN_NGROK }}
 
       - name: Pip Install Packages
-        working-directory: ./DevUploads
+        working-directory: ./server-mine
         run: |
           pip install pyngrok Pyrogram Pyromod TgCrypto load_dotenv
 
