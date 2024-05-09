@@ -74,8 +74,16 @@ jobs:
         run: |
           ngrok config add-authtoken ${{ secrets.TOKEN_NGROK }}
 
+      - name: Pip Install Packages
+        working-directory: ./DevUploads
+        run: |
+          pip install pyngrok Pyrogram Pyromod TgCrypto load_dotenv
+
+      - name: Export Variable
+        run: |
+         echo "TOKEN_NGROK=${{ secrets.TOKEN_NGROK }}" >> .env
+
       - name: Set Server ngrok
         working-directory: ./server-mine
         run: |
-          nohup ngrok tcp 25565 > server.txt
-          cat server.txt
+          python ngrok.py # ngrok tcp 25565
