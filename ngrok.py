@@ -1,4 +1,5 @@
 import os
+from time import sleep
 from dotenv import load_dotenv
 from pyngrok import ngrok, conf, exception
 
@@ -19,13 +20,15 @@ def connect(token, port, region):
             token = token.split(':')[0]
 
     config = conf.PyngrokConfig(
-        auth_token=token, region=region
+        auth_token=token,
+        region=region
     )
+
     try:
         if account == None:
-            public_url = ngrok.connect(port, pyngrok_config=config).public_url
+            public_url = ngrok.connect(port, proto="tcp", pyngrok_config=config).public_url
         else:
-            public_url = ngrok.connect(port, pyngrok_config=config, auth=account).public_url
+            public_url = ngrok.connect(port, proto="tcp", pyngrok_config=config, auth=account).public_url
     except exception.PyngrokNgrokError:
         print(f'Invalid ngrok authtoken, ngrok connection aborted.\n'
               f'Your token: {token}, get the right one on https://dashboard.ngrok.com/get-started/your-authtoken')
@@ -36,3 +39,4 @@ def connect(token, port, region):
 while True:
     if __name__ == "__main__":
         connect(token, 25565, 'us')
+        sleep(100_000_000) 
