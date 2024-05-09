@@ -67,6 +67,7 @@ jobs:
         working-directory: ./server-mine
         run: |
           sudo sed -i 's/^online-mode=true$/online-mode=false/' server.properties
+          cat server.properties
 
       - name: Download ngrok
         working-directory: ./server-mine
