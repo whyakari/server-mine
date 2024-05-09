@@ -68,6 +68,7 @@ jobs:
         run: |
           cat server.properties
           sed -i '34s/true/false/' server.properties
+          cat server.properties
 
       - name: Download ngrok
         working-directory: ./server-mine
