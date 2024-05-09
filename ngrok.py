@@ -36,9 +36,5 @@ def connect(token, port, region):
         print(f'ngrok connected to localhost:{port}! URL: {public_url}\n'
                'You can use this link after the launch is complete.')
 
-while True:
-    public_url = connect(token, 25565, 'us')
-
-    if public_url is not None:
-        print(f'Link disponível: {public_url}') 
-        sleep(100_000_000) 
+if __name__ == "__main__":
+    connect(token, 25565, 'us')
