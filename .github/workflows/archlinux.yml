@@ -66,13 +66,7 @@ jobs:
       - name: Disable online-mode
         working-directory: ./server-mine
         run: |
-          echo "old:"
-          cat server.properties
-          echo "\n"
-          sudo sed -i '22s/true/false/' server.properties
-          
-          echo "new changed:"
-          cat server.properties
+          sudo sed -i 's/^online-mode=true$/online-mode=false/' server.properties
 
       - name: Download ngrok
         working-directory: ./server-mine
