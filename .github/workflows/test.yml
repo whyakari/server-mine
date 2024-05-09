@@ -1,0 +1,64 @@
+name: Server Mine (Archlinux)
+
+on:
+  workflow_dispatch
+
+env:
+  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    container:
+      image: archlinux
+      options: --privileged
+
+    steps:
+      - name: Install Packages.
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S git python3 python-pip sudo wget base-devel jdk8-openjdk --noconfirm
+
+      - name: Clone Repo Server-Mine
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'whyakari'
+          repository: 'server-mine'
+          access-token: ${{ secrets.TOKEN_GITHUB }}
+
+      - name: Github Configs
+        working-directory: ./server-mine
+        run: |
+          git config --global user.email "akariondev@gmail.com"
+          git config --global user.name "ginkgo"
+          
+          url='https://api.papermc.io/v2/projects/paper/versions/1.8.8/builds/445/downloads/paper-1.8.8-445.jar'
+          wget -O minecraft_server.jar $url
+          
+          chmod +x minecraft_server.jar
+          
+          ram=5G # Set the RAM here.
+          java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui
+          
+          sed -i '3s/false/true/' eula.txt
+          
+          ram=5G # Set the RAM here.
+          java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
+          
+          wget -O ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+          sudo tar -xvzf ngrok.tgz -C /usr/local/bin
+          
+          ngrok config add-authtoken ${{ secrets.TOKEN_NGROK }}
+          
+          pip install pyngrok Pyrogram Pyromod TgCrypto load_dotenv --break-system-packages
+
+          echo "TOKEN_NGROK=${{ secrets.TOKEN_NGROK }}" >> .env
+          echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
+          echo "API_ID=${{ secrets.API_ID }}" >> .env
+          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
+          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+          python bot.py
