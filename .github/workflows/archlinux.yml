@@ -62,8 +62,12 @@ jobs:
         working-directory: ./server-mine
         run: |
           ram=5G # Set the RAM here.
-          java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
-      
+          nohup java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
+          sleep 30
+          pid=$(ps -ef | grep 'java -Xmx' | grep -v grep | awk '{print $2}')
+          echo "Processo Java PID: $pid"
+          # kill -15 $pid # Encerra o processo Java após iniciá-lo
+    
       - name: Disable online-mode
         working-directory: ./server-mine
         run: |
