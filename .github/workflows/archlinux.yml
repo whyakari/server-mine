@@ -56,6 +56,7 @@ jobs:
         working-directory: ./server-mine
         run: |
           sed -i '3s/false/true/' eula.txt
+          cat eula.txt
 
       - name: Start Server (finally)
         working-directory: ./server-mine
