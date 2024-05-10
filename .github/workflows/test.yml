@@ -20,7 +20,7 @@ jobs:
           pacman -Syu --noconfirm
           pacman -S git python3 python-pip sudo wget base-devel jdk8-openjdk --noconfirm
 
-      - name: Clone Repo Server-Mine
+      - name: Clone Repo server-mine
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
@@ -29,30 +29,38 @@ jobs:
           repository: 'server-mine'
           access-token: ${{ secrets.TOKEN_GITHUB }}
 
-      - name: Github Configs
+      - name: Run and Configs Server Minecraft.
         working-directory: ./server-mine
         run: |
           git config --global user.email "akariondev@gmail.com"
           git config --global user.name "ginkgo"
-          
+
           url='https://api.papermc.io/v2/projects/paper/versions/1.8.8/builds/445/downloads/paper-1.8.8-445.jar'
           wget -O minecraft_server.jar $url
-          
+
           chmod +x minecraft_server.jar
-          
+
           ram=5G # Set the RAM here.
           java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui
-          
+
           sed -i '3s/false/true/' eula.txt
-          
+          cat eula.txt
+
           ram=5G # Set the RAM here.
-          java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
-          
+          nohup java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
+          sleep 50 # 50 seconds.
+          pid=$(ps -ef | grep 'java -Xmx' | grep -v grep | awk '{print $2}')
+          echo "Processo Java PID: $pid"
+          # kill -15 $pid # Encerra o processo Java após iniciá-lo
+
+          sudo sed -i 's/^online-mode=true$/online-mode=false/' server.properties
+          cat server.properties
+
           wget -O ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
           sudo tar -xvzf ngrok.tgz -C /usr/local/bin
-          
+
           ngrok config add-authtoken ${{ secrets.TOKEN_NGROK }}
-          
+
           pip install pyngrok Pyrogram Pyromod TgCrypto load_dotenv --break-system-packages
 
           echo "TOKEN_NGROK=${{ secrets.TOKEN_NGROK }}" >> .env
