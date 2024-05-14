@@ -42,6 +42,9 @@ jobs:
          sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac 1
          sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/bin/java
          sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+         echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee -a /etc/environment
+         echo "PATH=$JAVA_HOME/bin:$PATH" | sudo tee -a /etc/environment
+         source /etc/environment
 
       - name: Check Versions If Installed
         working-directory: ./server-mine
