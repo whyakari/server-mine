@@ -81,4 +81,40 @@ jobs:
         working-directory: ./server-mine
         run: |
           ram=5G # Set the RAM here.
-          sudo java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui
+          nohup sudo java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
+          sleep(20)
+
+      - name: Disable online-mode
+        working-directory: ./server-mine
+        run: |
+          sudo sed -i 's/^online-mode=true$/online-mode=false/' server.properties
+          cat server.properties
+
+      - name: Download ngrok
+        working-directory: ./server-mine
+        run: |
+          wget -O ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+          sudo tar -xvzf ngrok.tgz -C /usr/local/bin
+
+      - name: Set ngrok Config
+        working-directory: ./server-mine
+        run: |
+          ngrok config add-authtoken ${{ secrets.TOKEN_NGROK }}
+
+      - name: Pip Install Packages
+        working-directory: ./server-mine
+        run: |
+          pip install pyngrok Pyrogram Pyromod TgCrypto load_dotenv --break-system-packages
+
+      - name: Export Variable
+        run: |
+         echo "TOKEN_NGROK=${{ secrets.TOKEN_NGROK }}" >> .env
+         echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
+         echo "API_ID=${{ secrets.API_ID }}" >> .env
+         echo "API_HASH=${{ secrets.API_HASH }}" >> .env
+         echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+      - name: Set Server ngrok
+        working-directory: ./server-mine
+        run: |
+          python bot.py
