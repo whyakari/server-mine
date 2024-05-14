@@ -1,8 +1,6 @@
 import os
 from dotenv import load_dotenv
 from pyngrok import ngrok, conf, exception
-import time
-import threading
 
 load_dotenv()
 
