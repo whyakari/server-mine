@@ -3,7 +3,7 @@ from pyrogram import filters
 from pyrogram.client import Client
 from pyrogram.types import Message
 
-from ngrok import start_ngrok
+from ngrok import connect
 
 api_id = os.getenv('API_ID', 0)
 api_hash = os.getenv('API_HASH', '')
@@ -23,7 +23,7 @@ use /mine for run server minecraft!""")
 
 @app.on_message(filters.command("mine"))
 async def run_server_ngrok(bot: Client, msg: Message):
-    public_url = start_ngrok()
+    public_url = connect(token, 25565, 'us')
     message = f'ngrok connected! URL: {public_url}\n'
     await msg.reply_text(message)
 
