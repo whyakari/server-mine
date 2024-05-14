@@ -83,12 +83,6 @@ jobs:
           sudo sed -i 's/^online-mode=true$/online-mode=false/' server.properties
           cat server.properties
 
-      - name: Start Server (finally)
-        working-directory: ./server-mine
-        run: |
-          ram=5G # Set the RAM here.
-          nohup sudo java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
-
       - name: Download ngrok
         working-directory: ./server-mine
         run: |
@@ -113,7 +107,9 @@ jobs:
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
 
-      - name: Set Server ngrok
+      - name: ngrok and Start Server Minecraft 
         working-directory: ./server-mine
         run: |
+          export ram=5G
+          sudo java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
           python bot.py
