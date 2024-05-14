@@ -46,6 +46,10 @@ jobs:
           export PATH=$JAVA_HOME/bin:$PATH
           source ~/.bashrc
 
+          # check versions
+          java --version
+          javac --version
+
       - name: Check Versions If Installed
         working-directory: ./server-mine
         run: |
