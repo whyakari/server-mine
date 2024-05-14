@@ -46,6 +46,15 @@ jobs:
          echo "PATH=$JAVA_HOME/bin:$PATH" | sudo tee -a /etc/environment
          source /etc/environment
 
+         echo "Version of the Java:"
+         echo ""
+         
+         java --version
+         javac --version
+         
+         echo ""
+         echo ""
+
       - name: Check Versions If Installed
         working-directory: ./server-mine
         run: |
