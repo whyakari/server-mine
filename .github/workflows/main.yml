@@ -101,6 +101,7 @@ jobs:
 
       - name: Export Variable
         run: |
+         echo "TOKEN_NGROK=${{ secrets.TOKEN_NGROK }}" >> .env
          echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
          echo "API_ID=${{ secrets.API_ID }}" >> .env
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
