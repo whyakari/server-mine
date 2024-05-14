@@ -27,7 +27,6 @@ jobs:
          java-version: '8'
       - run: |
          java --version
-         javac --version
 
       - name: Set Swap Space
         uses: pierotofy/set-swap-space@master
