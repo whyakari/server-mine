@@ -8,7 +8,6 @@ from ngrok import start_ngrok
 api_id = os.getenv('API_ID', 0)
 api_hash = os.getenv('API_HASH', '')
 bot_token = os.getenv('BOT_TOKEN', '')
-token = os.getenv('TOKEN_NGROK', '')
 
 app = Client(
     name="cache",
