@@ -46,7 +46,7 @@ jobs:
          
          echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee -a /etc/environment
          echo "PATH=$JAVA_HOME/bin:$PATH" | sudo tee -a /etc/environment
-         source /etc/environment
+         # source /etc/environment
 
          echo "Version of the Java:"
          echo ""
