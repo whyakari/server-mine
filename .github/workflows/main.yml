@@ -82,7 +82,6 @@ jobs:
         run: |
           ram=5G # Set the RAM here.
           nohup sudo java -Xmx$ram -Xms$ram -jar minecraft_server.jar nogui &
-          sleep(20)
 
       - name: Disable online-mode
         working-directory: ./server-mine
